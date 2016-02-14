@@ -3,8 +3,8 @@ package com.tophymastery.live500px.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
+import com.tophymastery.live500px.manager.PhotoListManager;
 import com.tophymastery.live500px.view.PhotoListItem;
 
 /**
@@ -13,7 +13,11 @@ import com.tophymastery.live500px.view.PhotoListItem;
 public class PhotoListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
-        return 10000;
+        if (PhotoListManager.getInstance().getDao() == null)
+            return 0;
+        if (PhotoListManager.getInstance().getDao().getData() == null)
+            return 0;
+        return PhotoListManager.getInstance().getDao().getData().size();
     }
 
     @Override
